@@ -1,0 +1,394 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Employee List</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Employee List</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <!-- Default box -->
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <div *ngIf="showForm">
+                    <form class="form form-horizontal" (ngSubmit)="onSubmit()">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="mb-1 row">
+                                    <div class="col-sm-3">
+                                        <label class="col-form-label"
+                                            >first name</label
+                                        >
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            name="firstName"
+                                            [(ngModel)]="formData.firstName"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="mb-1 row">
+                                    <div class="col-sm-3">
+                                        <label class="col-form-label"
+                                            >last name</label
+                                        >
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            name="lastName"
+                                            [(ngModel)]="formData.lastName"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-9 offset-sm-3">
+                                <button
+                                    type="submit"
+                                    class="btn btn-sm btn-primary"
+                                >
+                                    Search
+                                </button>
+                                <button
+                                    type="button"
+                                    class="btn btn-sm btn-light ml-1"
+                                    (click)="resetBtn()"
+                                >
+                                    Reset
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="table-responsive mt-3" *ngIf="showTable">
+                        <div class="row mb-1">
+                            <div class="col-sm-1">
+                                <input
+                                    type="text"
+                                    class="form-control form-control-sm"
+                                    name="totalRow"
+                                    [(ngModel)]="totalRow"
+                                />
+                            </div>
+                            <div class="col-sm-1">
+                                <button
+                                    type="button"
+                                    class="btn btn-sm btn-primary"
+                                    (click)="fetchData()"
+                                >
+                                    &raquo;
+                                </button>
+                            </div>
+                            <div class="col">
+                                <div class="float-right">
+                                    <button
+                                        type="button"
+                                        class="btn btn-sm btn-success"
+                                        (click)="addEmployee()"
+                                    >
+                                        Add Employee
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Username</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Salary</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let dt of data; index as i">
+                                    <td>{{ i + 1 }}</td>
+                                    <td>{{ dt.username }}</td>
+                                    <td>{{ dt.firstName }}</td>
+                                    <td>{{ dt.lastName }}</td>
+                                    <td>{{ formatAmount(dt.basicSalary) }}</td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <button
+                                                type="button"
+                                                class="btn btn-sm btn-info"
+                                                (click)="
+                                                    detailEmployee(dt.userid)
+                                                "
+                                            >
+                                                Detail
+                                            </button>
+                                            <button
+                                                type="button"
+                                                class="btn btn-sm btn-warning ml-0"
+                                                (click)="
+                                                    editEmployee(dt.userid)
+                                                "
+                                            >
+                                                Edit
+                                            </button>
+
+                                            <button
+                                                type="button"
+                                                class="btn btn-sm btn-danger ml-0"
+                                                (click)="
+                                                    modalConfirmation(
+                                                        dt.userid,
+                                                        dt.username
+                                                    )
+                                                "
+                                            >
+                                                Delete
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div *ngIf="showDetail">
+                    <table class="table table-striped table-hover">
+                        <tr>
+                            <th>Username:</th>
+                            <td>{{ formDetail.username }}</td>
+                            <th>firstName:</th>
+                            <td>{{ formDetail.firstName }}</td>
+                        </tr>
+                        <tr>
+                            <th>lastName:</th>
+                            <td>{{ formDetail.lastName }}</td>
+                            <th>email:</th>
+                            <td>{{ formDetail.email }}</td>
+                        </tr>
+                        <tr>
+                            <th>birthDate:</th>
+                            <td>{{ substring(formDetail.birthDate) }}</td>
+                            <th>basicSalary:</th>
+                            <td>{{ formatRupiah(formDetail.basicSalary) }}</td>
+                        </tr>
+                        <tr>
+                            <th>status:</th>
+                            <td>{{ formDetail.status }}</td>
+                            <th>group:</th>
+                            <td>{{ formDetail.group }}</td>
+                        </tr>
+                        <tfoot>
+                            <tr>
+                                <td colspan="4">
+                                    <button
+                                        type="button"
+                                        class="btn btn-sm btn-success"
+                                        (click)="btnBack()"
+                                    >
+                                        Ok
+                                    </button>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <div *ngIf="showEdit">
+                    <form class="form form-horizontal" (ngSubmit)="onEdit()">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="mb-1 row">
+                                    <div class="col-sm-3">
+                                        <label class="col-form-label"
+                                            >username</label
+                                        >
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="username"
+                                            name="username"
+                                            [(ngModel)]="formDetail.username"
+                                            required
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="mb-1 row">
+                                    <div class="col-sm-3">
+                                        <label class="col-form-label"
+                                            >first name</label
+                                        >
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="firstname"
+                                            name="firstname"
+                                            [(ngModel)]="formDetail.firstName"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="mb-1 row">
+                                    <div class="col-sm-3">
+                                        <label class="col-form-label"
+                                            >last name</label
+                                        >
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="lastname"
+                                            name="lastname"
+                                            [(ngModel)]="formDetail.lastName"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="mb-1 row">
+                                    <div class="col-sm-3">
+                                        <label class="col-form-label"
+                                            >email</label
+                                        >
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="email"
+                                            name="email"
+                                            [(ngModel)]="formDetail.email"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="mb-1 row">
+                                    <div class="col-sm-3">
+                                        <label class="col-form-label"
+                                            >birthday</label
+                                        >
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="birthdate"
+                                            name="birthdate"
+                                            [(ngModel)]="formDetail.birthDate"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="mb-1 row">
+                                    <div class="col-sm-3">
+                                        <label class="col-form-label"
+                                            >salary</label
+                                        >
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="salary"
+                                            name="salary"
+                                            [(ngModel)]="formDetail.basicSalary"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="mb-1 row">
+                                    <div class="col-sm-3">
+                                        <label class="col-form-label"
+                                            >status</label
+                                        >
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="status"
+                                            name="status"
+                                            [(ngModel)]="formDetail.status"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="mb-1 row">
+                                    <div class="col-sm-3">
+                                        <label class="col-form-label"
+                                            >Group</label
+                                        >
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="group"
+                                            name="group"
+                                            [(ngModel)]="formDetail.group"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-9 offset-sm-3">
+                                <button
+                                    type="submit"
+                                    class="btn btn-sm btn-primary"
+                                >
+                                    Save
+                                </button>
+                                <button
+                                    type="button"
+                                    class="btn btn-sm btn-warning ml-1"
+                                    (click)="btnBack2()"
+                                >
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- /.card-body -->
+        </div>
+    </div>
+    <!-- /.card -->
+</section>
+<!-- /.content -->

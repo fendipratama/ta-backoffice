@@ -1,0 +1,242 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Add Employee</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Add Employee</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <!-- Default box -->
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Title</h3>
+
+                <div class="card-tools">
+                    <button
+                        type="button"
+                        class="btn btn-tool"
+                        data-widget="collapse"
+                        data-toggle="tooltip"
+                        title="Collapse"
+                    >
+                        <i class="fa fa-minus"></i>
+                    </button>
+                    <button
+                        type="button"
+                        class="btn btn-tool"
+                        data-widget="remove"
+                        data-toggle="tooltip"
+                        title="Remove"
+                    >
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <form class="form form-horizontal" (ngSubmit)="onSubmit()">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label"
+                                        >username</label
+                                    >
+                                </div>
+                                <div class="col-sm-9">
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="username"
+                                        name="username"
+                                        [(ngModel)]="formData.username"
+                                        required
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label"
+                                        >first name</label
+                                    >
+                                </div>
+                                <div class="col-sm-9">
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="firstname"
+                                        name="firstname"
+                                        [(ngModel)]="formData.firstName"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label"
+                                        >last name</label
+                                    >
+                                </div>
+                                <div class="col-sm-9">
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="lastname"
+                                        name="lastname"
+                                        [(ngModel)]="formData.lastName"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label">email</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="email"
+                                        name="email"
+                                        [(ngModel)]="formData.email"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label"
+                                        >birthday</label
+                                    >
+                                </div>
+                                <div class="col-sm-9">
+                                    <!-- <igx-date-picker>
+                                        <label igxLabel>Date</label>
+                                    </igx-date-picker> -->
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="birthdate"
+                                        name="birthdate"
+                                        [(ngModel)]="formData.birthDate"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label">salary</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="salary"
+                                        name="salary"
+                                        [(ngModel)]="formData.basicSalary"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label">status</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="status"
+                                        name="status"
+                                        [(ngModel)]="formData.status"
+                                    />
+                                    <!-- <select
+                                        class="form-control form-select"
+                                        aria-label="Default select example"
+                                        [(ngModel)]="formData.status"
+                                    >
+                                        <option value="" selected>
+                                            -- select one --
+                                        </option>
+                                        <option value="Active">Active</option>
+                                        <option value="Inactive">
+                                            Inactive
+                                        </option>
+                                    </select> -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label">Group</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="group"
+                                        name="group"
+                                        [(ngModel)]="formData.group"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-9 offset-sm-3">
+                            <button
+                                type="submit"
+                                class="btn btn-sm btn-primary"
+                            >
+                                Save
+                            </button>
+
+                            <button
+                                type="reset"
+                                class="btn btn-sm btn-light ml-1"
+                            >
+                                Reset
+                            </button>
+                            <button
+                                type="button"
+                                class="btn btn-sm btn-warning ml-1"
+                                (click)="btnBack()"
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- /.card-body -->
+        </div>
+    </div>
+    <!-- /.card -->
+</section>
+<!-- /.content -->
